@@ -4,7 +4,7 @@
 <html>
 <body>
 
-<h1>App details</h1>
+<h2>App details</h2>
 
   <p>
 Learn by doing!
