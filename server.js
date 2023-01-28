@@ -1,5 +1,5 @@
-import config from './config.js';
-import apiRouter from './api/index.js';     //izbacuje mi gresku kada stavim samo './api'
+import config from './config';
+import apiRouter from './api';     //izbacuje mi gresku kada stavim samo './api'
 
 import express from 'express';
 const server = express();
@@ -8,7 +8,7 @@ server.set('view engine', 'ejs');
 
 server.get('/', (req, res) => {
     res.render('index', {
-        content: 'Hello Express and EJS!'
+        content: '...'
     });
 });
 
