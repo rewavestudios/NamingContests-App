@@ -5,18 +5,19 @@ module.exports = {
     devtool: 'source-map',
     entry: './src/index.js',
     output: {
-        path: path.resolve('public'),
+        path: __dirname + '/public',
         filename: 'bundle.js'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                },
+                loader: 'babel-loader',
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+                },
         ],
     },
 };
