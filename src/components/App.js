@@ -1,7 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import Header from './Header';
-import ContestPreview from './ContestPreview';
+import ContestList from './ContestList';
+
+const pushState = (obj, url) =>
+  window.history.pushState(obj, '', url);
 
 class App extends React.Component {
   state = {
@@ -9,26 +11,24 @@ class App extends React.Component {
     contests: this.props.initialContests
   };
   componentDidMount() {
-    axios.get('/api/contests')
-      .then(resp => {
-        this.setState({
-          contests: resp.data.contests
-        });
-      })
-      .catch(console.error);
+
   }
   componentWillUnmount() {
     // clean timers, listeners
   }
+  fetchContest = (contestId) => {
+    pushState(
+      { currentContestId: contestId},
+      `/contest/${contestId}`
+    );
+  };
   render() {
     return (
       <div className="App">
         <Header message={this.state.pageHeader} />
-        <div>
-          {this.state.contests.map(contest =>
-            <ContestPreview key={contest.id} {...contest} />
-          )}
-        </div>
+        <ContestList
+          onContestClick={this.fetchContest}
+          contests={this.state.contests} />
       </div>
     );
   }
