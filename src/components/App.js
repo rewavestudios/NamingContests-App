@@ -6,7 +6,7 @@ import ContestList from './ContestList';
 class App extends React.Component {
   state = {
     pageHeader: 'Naming Contests',
-    contests: []
+    contests: this.props.initialContests
   };
   componentDidMount() {
     axios.get('/api/contests')
