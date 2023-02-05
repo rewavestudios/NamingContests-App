@@ -33,6 +33,10 @@ React allows you to build full-featured, data-driven applications faster and mor
   <li>Front-end routing and back-end routing</li>
 </ul>
   </p>
+ 
+ <p>
+  Special thanks to instructor <link rel="Samer Buna" href="https://www.linkedin.com/learning/instructors/samer-buna"> who introduces us to modern JavaScript programming concepts, with an emphasis on functional methods and open-source tools. The lessons are almost completely hands-on, with live coding demonstrations that bring the concepts home.
+  </p>
 
 </body>
 </html>
