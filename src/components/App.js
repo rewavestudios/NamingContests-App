@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import ContestList from './ContestList';
+import * as api from '../api.js';
 
 const pushState = (obj, url) =>
   window.history.pushState(obj, '', url);
@@ -18,10 +19,29 @@ class App extends React.Component {
   }
   fetchContest = (contestId) => {
     pushState(
-      { currentContestId: contestId},
+      { currentContestId: contestId },
       `/contest/${contestId}`
     );
+    api.fetchContest(contestId).then(contest => {
+      this.setState({
+        pageHeader: contest.contestName,
+        currentContestId: contest.id,
+        contests: {
+          ...this.state.cotests,
+          [contest.id]: contest
+        }
+      });
+    });
   };
+  currentContent() {
+    if (this.state.currentContestId) {
+      return <Contest {...this.state.contests[this.state.currentContestId]} />;
+    }
+
+    return <ContestList
+            onContestClick={this.fetchContest}
+            contests={this.state.contests} />;
+  }
   render() {
     return (
       <div className="App">
@@ -31,7 +51,7 @@ class App extends React.Component {
           contests={this.state.contests} />
       </div>
     );
-  }
-}
+  };
+};
 
 export default App;
