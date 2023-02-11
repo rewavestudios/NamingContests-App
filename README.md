@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div style="text-align: justify">
+<div align = "justify">
 <h2>App details</h2>
 
   <p>
