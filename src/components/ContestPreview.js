@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class ContestPreview extends Component {
   handleClick = () => {
-    this.props.onClick(this.props.id)
-};
+    this.props.onClick(this.props.id);
+  };
   render() {
     return (
       <div className="link ContestPreview" onClick={this.handleClick}>
