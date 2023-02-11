@@ -9048,6 +9048,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var pushState = function pushState(obj, url) {
   return window.history.pushState(obj, '', url);
 };
+var onPopState = function onPopState(handler) {
+  window.onpopstate = handler;
+};
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
   var _super = _createSuper(App);
@@ -9066,7 +9069,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       _api__WEBPACK_IMPORTED_MODULE_4__.fetchContest(contestId).then(function (contest) {
         _this.setState({
           currentContestId: contest.id,
-          contests: _objectSpread(_objectSpread({}, _this.state.cotests), {}, _defineProperty({}, contest.id, contest))
+          contests: _objectSpread(_objectSpread({}, _this.state.contests), {}, _defineProperty({}, contest.id, contest))
         });
       });
     });
@@ -9085,11 +9088,18 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
   _createClass(App, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var _this2 = this;
+      onPopState(function (event) {
+        _this2.setState({
+          currentContestId: (event.state || {}).currentContestId
+        });
+      });
+    }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      // clean timers, listeners
+      onPopState(null);
     }
   }, {
     key: "currentContest",
