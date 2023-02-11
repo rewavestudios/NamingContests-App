@@ -8985,13 +8985,19 @@ if (false) {} else {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchContest": () => (/* binding */ fetchContest)
+/* harmony export */   "fetchContest": () => (/* binding */ fetchContest),
+/* harmony export */   "fetchContestList": () => (/* binding */ fetchContestList)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
 var fetchContest = function fetchContest(contestId) {
   return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/contests/".concat(contestId)).then(function (resp) {
     return resp.data;
+  });
+};
+var fetchContestList = function fetchContestList() {
+  return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/contests').then(function (resp) {
+    return resp.data.contests;
   });
 };
 
@@ -9017,6 +9023,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Contest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Contest */ "./src/components/Contest.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api */ "./src/api.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9063,6 +9070,17 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       });
     });
+    _defineProperty(_assertThisInitialized(_this), "fetchContestList", function () {
+      pushState({
+        currentContestId: null
+      }, '/');
+      _api__WEBPACK_IMPORTED_MODULE_4__.fetchContestList().then(function (contests) {
+        _this.setState({
+          currentContestId: null,
+          contests: contests
+        });
+      });
+    });
     return _this;
   }
   _createClass(App, [{
@@ -9090,7 +9108,9 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "currentContent",
     value: function currentContent() {
       if (this.state.currentContestId) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Contest__WEBPACK_IMPORTED_MODULE_3__["default"], this.currentContest());
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Contest__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+          contestListClick: this.fetchContestList
+        }, this.currentContest()));
       }
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ContestList__WEBPACK_IMPORTED_MODULE_2__["default"], {
         onContestClick: this.fetchContest,
@@ -9158,13 +9178,19 @@ var Contest = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "Contest"
-      }, this.props.description);
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "contest-description"
+      }, this.props.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "home-link link",
+        onClick: this.props.contestListClick
+      }, "Contest List"));
     }
   }]);
   return Contest;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 Contest.propTypes = {
-  description: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired)
+  description: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired),
+  contestListClick: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func.isRequired)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Contest);
 
