@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<div>
 <h2>App details</h2>
 
   <p>
@@ -35,6 +35,7 @@ React allows you to build full-featured, data-driven applications faster and mor
   </p>
 
   Special thanks to instructor [Samer Buna](https://www.linkedin.com/learning/instructors/samer-buna), who introduces us to modern JavaScript programming concepts, with an emphasis on functional methods and open-source tools. The lessons are almost completely hands-on, with live coding demonstrations that bring the concepts home.
-
+ 
+</div>
 </body>
 </html>
